@@ -1,33 +1,120 @@
-/* Estilos específicos para a página de Banco de Dados */
+/* Estilos específicos para a página de Banco de Dados - Versão Fofa */
+:root {
+    --verde-profundo: #2e8b57;
+    --verde-suave: #3cb371;
+    --verde-claro: #90ee90;
+    --rosa-claro: #ffb6c1;
+    --rosa-profundo: #ff69b4;
+    --branco: #ffffff;
+    --cinza-texto: #555555;
+    --cinza-escuro: #333333;
+}
 
-/* Seção de introdução da disciplina */
+/* Animação de flutuação para corações */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* Animação de pulsação */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Animação de corações caindo */
+@keyframes falling-hearts {
+    0% { 
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(calc(100vh + 100px)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Estilo global para ícones de coração */
+.heart-icon {
+    color: var(--rosa-profundo);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Seção de introdução da disciplina - Estilo super fofo */
 .discipline-intro {
-    padding: 80px 0 40px;
-    background: linear-gradient(135deg, #f0fff8 0%, #ffffff 100%);
+    padding: 100px 0 60px;
+    background: linear-gradient(135deg, #f0fff8 0%, #fef9ff 100%);
     border-bottom: 1px solid rgba(72, 178, 154, 0.2);
     position: relative;
     overflow: hidden;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+/* Corações flutuantes no fundo */
+.falling-hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.falling-heart {
+    position: absolute;
+    font-size: 1.2rem;
+    color: var(--rosa-profundo);
+    opacity: 0.7;
+    animation: falling-hearts linear infinite;
+}
+
+/* Criando múltiplos corações caindo */
+@for $i from 1 through 15 {
+    .falling-heart:nth-child(#{$i}) {
+        left: random(100) + 0%;
+        animation-delay: random(10) + 0s;
+        animation-duration: random(15) + 10s;
+        font-size: random(20)/10 + 0.8rem;
+    }
+}
+
+.discipline-intro::before, .discipline-intro::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 0;
 }
 
 .discipline-intro::before {
-    content: "";
-    position: absolute;
     top: -50px;
     right: -50px;
-    width: 200px;
-    height: 200px;
-    background-color: var(--verde-claro);
-    border-radius: 50%;
-    opacity: 0.3;
-    z-index: 0;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--rosa-claro) 0%, transparent 70%);
+}
+
+.discipline-intro::after {
+    bottom: -80px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--verde-claro) 0%, transparent 70%);
 }
 
 .discipline-image-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 30px;
-    z-index: 1;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 40px;
+    z-index: 2;
+    background-color: var(--branco);
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
 .discipline-image {
@@ -37,126 +124,193 @@
     border-radius: 50%;
     border: 5px solid var(--branco);
     box-shadow: 0 10px 30px rgba(72, 178, 154, 0.2);
-    transition: all 0.5s ease;
-    z-index: 2;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3;
     position: relative;
 }
 
 .discipline-image:hover {
-    transform: scale(1.05) rotate(5deg);
-    box-shadow: 0 15px 40px rgba(72, 178, 154, 0.3);
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 20px 50px rgba(72, 178, 154, 0.4);
 }
 
+/* Decoração de corações ao redor da imagem */
 .hearts-decoration {
     position: absolute;
-    top: -15px;
-    left: -15px;
-    width: calc(100% + 30px);
-    height: calc(100% + 30px);
-    z-index: 0;
+    top: -25px;
+    left: -25px;
+    width: calc(100% + 50px);
+    height: calc(100% + 50px);
+    z-index: 1;
 }
 
 .hearts-decoration i {
     position: absolute;
-    color: var(--verde-profundo);
-    opacity: 0.6;
+    color: var(--rosa-profundo);
+    opacity: 0.8;
     animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .hearts-decoration i:nth-child(1) {
     top: 10px;
     left: 10px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     animation-delay: 0s;
+    color: var(--rosa-profundo);
 }
 
 .hearts-decoration i:nth-child(2) {
     bottom: 15px;
     right: 15px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     animation-delay: 0.5s;
+    color: var(--verde-profundo);
 }
 
 .hearts-decoration i:nth-child(3) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1rem;
+    font-size: 1.2rem;
     animation-delay: 1s;
+    color: var(--rosa-claro);
 }
 
-/* Estilos para os trimestres */
+.hearts-decoration i:nth-child(4) {
+    top: 20px;
+    right: 20px;
+    font-size: 1.3rem;
+    animation-delay: 1.5s;
+    color: var(--verde-suave);
+}
+
+.hearts-decoration i:nth-child(5) {
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.6rem;
+    animation-delay: 2s;
+    color: var(--rosa-profundo);
+}
+
+/* Estilos para os trimestres - Versão fofinha */
 .trimester-section {
-    padding: 60px 0;
-    border-bottom: 1px solid rgba(72, 178, 154, 0.1);
+    padding: 80px 0;
     position: relative;
     overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    margin: 30px 0;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.trimester-section::before, .trimester-section::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: 0;
+    filter: blur(20px);
 }
 
 .trimester-section:nth-child(odd)::before {
-    content: "";
-    position: absolute;
     top: -50px;
     right: -50px;
-    width: 150px;
-    height: 150px;
-    background-color: var(--rosa-claro);
-    border-radius: 50%;
-    opacity: 0.1;
-    z-index: 0;
+    background: radial-gradient(circle, var(--rosa-claro) 0%, transparent 70%);
+    animation: pulse 8s ease infinite;
 }
 
 .trimester-section:nth-child(even)::after {
-    content: "";
-    position: absolute;
     bottom: -50px;
     left: -50px;
-    width: 150px;
-    height: 150px;
-    background-color: var(--verde-claro);
-    border-radius: 50%;
-    opacity: 0.1;
-    z-index: 0;
+    background: radial-gradient(circle, var(--verde-claro) 0%, transparent 70%);
+    animation: pulse 10s ease infinite 2s;
 }
 
 .trimester-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--verde-profundo);
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.trimester-title span {
+    display: inline-block;
+    position: relative;
+}
+
+.trimester-title span::before, .trimester-title span::after {
+    content: "❤";
+    position: absolute;
+    color: var(--rosa-profundo);
+    font-size: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    animation: pulse 2s ease infinite;
+}
+
+.trimester-title span::before {
+    left: -40px;
+}
+
+.trimester-title span::after {
+    right: -40px;
 }
 
 .trimester-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     color: var(--branco);
     border-radius: 50%;
-    margin-right: 15px;
-    font-size: 1.2rem;
+    margin-right: 20px;
+    font-size: 1.5rem;
     font-weight: 700;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.trimester-badge::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--verde-suave), var(--rosa-claro));
+    z-index: -1;
+    opacity: 0.8;
 }
 
 .trimester-badge:hover {
-    transform: scale(1.1) rotate(10deg);
+    transform: scale(1.2) rotate(15deg);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para cada tópico */
+/* Estilo para cada tópico - Super fofo */
 .topic-container {
     background-color: var(--branco);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s ease;
+    border-radius: 25px;
+    padding: 35px;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -169,157 +323,306 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, var(--verde-suave), var(--verde-profundo));
-    transition: all 0.4s ease;
+    height: 8px;
+    background: linear-gradient(90deg, var(--verde-suave), var(--rosa-claro));
+    transition: all 0.5s ease;
+}
+
+.topic-container::after {
+    content: "❤";
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 1.2rem;
+    color: var(--rosa-claro);
+    opacity: 0.3;
+    transition: all 0.3s ease;
 }
 
 .topic-container:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 15px 30px rgba(72, 178, 154, 0.2);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(72, 178, 154, 0.3);
 }
 
 .topic-container:hover::before {
-    height: 8px;
+    height: 12px;
+}
+
+.topic-container:hover::after {
+    opacity: 0.8;
+    transform: scale(1.5) rotate(20deg);
 }
 
 .topic-title {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 600;
     color: var(--verde-profundo);
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(72, 178, 154, 0.2);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed rgba(72, 178, 154, 0.3);
     display: flex;
     align-items: center;
 }
 
 .topic-title i {
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-right: 15px;
+    color: var(--rosa-profundo);
 }
 
 .topic-container:hover .topic-title i {
-    transform: scale(1.2);
+    transform: scale(1.3) rotate(15deg);
+    color: var(--verde-profundo);
 }
 
 .topic-description {
     color: var(--cinza-texto);
     margin-bottom: 25px;
+    line-height: 1.7;
+    position: relative;
+    padding-left: 20px;
 }
 
-/* Estilos para os cards de download de scripts */
+.topic-description::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--rosa-claro);
+}
+
+/* Estilos para os cards de download de scripts - Fofos */
 .download-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .download-card {
     display: flex;
-    background-color: rgba(168, 230, 207, 0.2);
-    border-radius: 15px;
+    background-color: rgba(255, 182, 193, 0.1);
+    border-radius: 20px;
     overflow: hidden;
-    transition: all 0.4s ease;
-    border: 1px solid rgba(72, 178, 154, 0.1);
+    transition: all 0.5s ease;
+    border: 1px solid rgba(255, 182, 193, 0.2);
+    position: relative;
+}
+
+.download-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    pointer-events: none;
 }
 
 .download-card:hover {
-    background-color: rgba(168, 230, 207, 0.3);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(72, 178, 154, 0.1);
+    background-color: rgba(255, 182, 193, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(255, 182, 193, 0.2);
 }
 
 .file-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 80px;
+    min-width: 100px;
     color: var(--branco);
-    font-size: 2rem;
-    padding: 20px;
-    transition: all 0.3s ease;
+    font-size: 2.5rem;
+    padding: 30px;
+    transition: all 0.5s ease;
+    position: relative;
+    background: linear-gradient(135deg, var(--verde-suave), var(--verde-profundo));
+}
+
+.file-icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="30" font-family="Arial" font-size="10" fill="rgba(255,255,255,0.1)">❤❤❤</text></svg>');
+    opacity: 0.3;
 }
 
 .download-card:hover .file-icon {
     transform: scale(1.1);
+    background: linear-gradient(135deg, var(--rosa-claro), var(--rosa-profundo));
 }
 
 .download-content {
-    padding: 20px;
+    padding: 25px;
     flex-grow: 1;
+    position: relative;
+}
+
+.download-content::before {
+    content: "↓";
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: rgba(255, 105, 180, 0.1);
+    transition: all 0.3s ease;
+}
+
+.download-card:hover .download-content::before {
+    color: rgba(255, 105, 180, 0.3);
+    transform: translateY(-5px);
 }
 
 .download-content h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: var(--cinza-escuro);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.download-content h4 i {
+    margin-right: 10px;
+    color: var(--rosa-profundo);
 }
 
 .download-description {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--cinza-texto);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 
 .download-btn {
     display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 30px;
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(to right, var(--verde-suave), var(--verde-profundo));
+    color: white;
     border: none;
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+    overflow: hidden;
+    position: relative;
+}
+
+.download-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s ease;
 }
 
 .download-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(46, 139, 87, 0.4);
 }
 
-/* Estilo para seções em desenvolvimento */
+.download-btn:hover::before {
+    left: 100%;
+}
+
+.download-btn i {
+    margin-left: 8px;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Estilo para seções em desenvolvimento - Extra fofo */
 .coming-soon-container {
     text-align: center;
-    padding: 50px 20px;
+    padding: 70px 30px;
     background-color: var(--branco);
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    border: 2px dashed rgba(72, 178, 154, 0.3);
-    transition: all 0.3s ease;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 3px dashed rgba(255, 182, 193, 0.5);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.coming-soon-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="10" fill="rgba(255,182,193,0.1)">❤</text></svg>');
+    opacity: 0.3;
 }
 
 .coming-soon-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(72, 178, 154, 0.1);
-    border-color: var(--verde-suave);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 182, 193, 0.3);
+    border-color: var(--rosa-profundo);
+    background-color: #fff9fb;
 }
 
 .coming-soon-icon {
-    font-size: 3rem;
-    color: var(--verde-suave);
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
+    font-size: 4rem;
+    color: var(--rosa-profundo);
+    margin-bottom: 25px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    text-shadow: 0 5px 15px rgba(255,105,180,0.3);
 }
 
 .coming-soon-container:hover .coming-soon-icon {
-    transform: scale(1.2);
+    transform: scale(1.3) rotate(15deg);
     color: var(--verde-profundo);
 }
 
 .coming-soon-text {
-    font-size: 1.5rem;
-    color: var(--verde-profundo);
-    margin-bottom: 15px;
-    font-weight: 600;
+    font-size: 1.8rem;
+    color: var(--rosa-profundo);
+    margin-bottom: 20px;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
-/* Menu ativo */
+.coming-soon-container:hover .coming-soon-text {
+    color: var(--verde-profundo);
+}
+
+.coming-soon-subtext {
+    font-size: 1.1rem;
+    color: var(--cinza-texto);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Menu ativo - Estilo fofo */
 .nav-link.active {
-    color: var(--verde-profundo) !important;
+    color: var(--rosa-profundo) !important;
     font-weight: 600;
-    background-color: rgba(168, 230, 207, 0.2);
+    background: rgba(255, 182, 193, 0.15);
     border-radius: 20px;
+    position: relative;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 182, 193, 0.2);
+}
+
+.nav-link.active::before {
+    content: "❤";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 .nav-link.active::after {
@@ -329,12 +632,12 @@
 /* Responsividade */
 @media (max-width: 768px) {
     .discipline-intro {
-        padding: 60px 0 30px;
+        padding: 80px 0 40px;
     }
 
     .discipline-image-container {
-        width: 160px;
-        height: 160px;
+        width: 180px;
+        height: 180px;
     }
 
     .download-card {
@@ -347,11 +650,24 @@
     }
 
     .trimester-title {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
+        flex-direction: column;
+    }
+
+    .trimester-title span::before, .trimester-title span::after {
+        position: static;
+        display: block;
+        margin: 10px 0;
+        transform: none;
+    }
+
+    .trimester-badge {
+        margin-right: 0;
+        margin-bottom: 15px;
     }
 
     .topic-title {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
     
     .trimester-section::before,
